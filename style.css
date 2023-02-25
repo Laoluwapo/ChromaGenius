@@ -121,15 +121,15 @@ svg {
   margin: 2rem 0rem;
 }
   
-  /* Styling the slider elements */
-  input[type="range"] {
-    -webkit-appearance: none;
-    margin: 1rem 0;
-    width: 100%;
-    position: relative;
-    border-radius: 1rem;
-    cursor: pointer;
-  }
+/* Styling the slider elements */
+input[type="range"] {
+  -webkit-appearance: none;
+  margin: 1rem 0;
+  width: 100%;
+  position: relative;
+  border-radius: 1rem;
+  cursor: pointer;
+}
 
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;

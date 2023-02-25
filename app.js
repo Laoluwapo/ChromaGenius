@@ -73,6 +73,29 @@ function colorizeSliders(color, hue, brightness, saturation) {
   hue.style.backgroundImage = `linear-gradient(to right, rgb(204,75,75), rgb(204,204,75),rgb(75,204,75), rgb(75,204,204), rgb(75,75,204), rgb(204,75,204), rgb(204,75,75))`;
 }
 
+// Function that controls the hsl
+function hslControls(e) {
+  const index =
+    e.target.getAttribute("data-bright") ||
+    e.target.getAttribute("data-sat") ||
+    e.target.getAttribute("data-hue");
+  let sliders = e.target.parentElement.querySelectorAll('input[type="range"]');
+  const hue = sliders[0];
+  const brightness = sliders[1];
+  const saturation = sliders[2];
+  const bgColor = colorDivs[index].querySelector("h2").innerText;
+  // Set the hue, sat and brightness to the value from the slider
+  let color = chroma(bgColor)
+    .set("hsl.h", hue.value)
+    .set("hsl.s", saturation.value)
+    .set("hsl.l", brightness.value);
+  // Update the background color of the adjusted colorDiv background
+  colorDivs[index].style.backgroundColor = color;
+}
+
 randomColors();
 
 // Event listeners
+sliders.forEach((slider) => {
+  slider.addEventListener("input", hslControls);
+});
