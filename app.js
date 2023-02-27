@@ -103,6 +103,10 @@ function updateTextUI(index) {
   textHex.innerText = color.hex();
   // Check text contrast
   checkTextContrast(color, textHex);
+  // Check buttons contrast
+  for (icon of icons) {
+    checkTextContrast(color, icon);
+  }
 }
 
 randomColors();
