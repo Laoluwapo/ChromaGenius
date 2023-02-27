@@ -93,9 +93,26 @@ function hslControls(e) {
   colorDivs[index].style.backgroundColor = color;
 }
 
+// Function that updates the text whenever hsl is adjusted
+function updateTextUI(index) {
+  console.log(index);
+  const activeDiv = colorDivs[index];
+  const color = chroma(activeDiv.style.backgroundColor);
+  const textHex = activeDiv.querySelector("h2");
+  const icons = activeDiv.querySelectorAll(".controls button");
+  textHex.innerText = color.hex();
+  // Check text contrast
+  checkTextContrast(color, textHex);
+}
+
 randomColors();
 
 // Event listeners
 sliders.forEach((slider) => {
   slider.addEventListener("input", hslControls);
+});
+colorDivs.forEach((div, index) => {
+  div.addEventListener("change", () => {
+    updateTextUI(index);
+  });
 });
