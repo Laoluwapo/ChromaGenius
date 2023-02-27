@@ -7,16 +7,6 @@ let initialColors;
 
 // Functions
 
-// Function that generates a color
-// function generateHex() {
-//   const letters = "#0123456789ABCDEF";
-//   let hash = "#";
-//   for (let i = 0; i < 6; i++) {
-//     hash += letters[Math.floor(Math.random() * 16)];
-//   }
-//   return hash;
-// }
-
 // Function that generates a color using the chroma-js library
 function generateHex() {
   const hexColor = chroma.random();
@@ -25,9 +15,12 @@ function generateHex() {
 
 // Function that loops over all the color divs and adds the random hex to their backgrounds
 function randomColors() {
+  initialColors = [];
   colorDivs.forEach((div, index) => {
     const hexText = div.children[0];
     const randomColor = generateHex();
+    // Add color to the array
+    initialColors.push(chroma(randomColor).hex());
     // Add the color to the background
     div.style.backgroundColor = randomColor;
     hexText.innerText = randomColor;
@@ -83,7 +76,7 @@ function hslControls(e) {
   const hue = sliders[0];
   const brightness = sliders[1];
   const saturation = sliders[2];
-  const bgColor = colorDivs[index].querySelector("h2").innerText;
+  const bgColor = initialColors[index];
   // Set the hue, sat and brightness to the value from the slider
   let color = chroma(bgColor)
     .set("hsl.h", hue.value)
@@ -95,7 +88,6 @@ function hslControls(e) {
 
 // Function that updates the text whenever hsl is adjusted
 function updateTextUI(index) {
-  console.log(index);
   const activeDiv = colorDivs[index];
   const color = chroma(activeDiv.style.backgroundColor);
   const textHex = activeDiv.querySelector("h2");
