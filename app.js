@@ -64,6 +64,10 @@ function colorizeSliders(color, hue, brightness, saturation) {
     0
   )}, ${scaleBright(0.5)}, ${scaleBright(1)})`;
   hue.style.backgroundImage = `linear-gradient(to right, rgb(204,75,75), rgb(204,204,75),rgb(75,204,75), rgb(75,204,204), rgb(75,75,204), rgb(204,75,204), rgb(204,75,75))`;
+  // Set the sliders value to match the hsl value of the color generated
+  hue.value = color.hsl()[0];
+  saturation.value = color.hsl()[1];
+  brightness.value = color.hsl()[2];
 }
 
 // Function that controls the hsl
@@ -84,6 +88,8 @@ function hslControls(e) {
     .set("hsl.l", brightness.value);
   // Update the background color of the adjusted colorDiv background
   colorDivs[index].style.backgroundColor = color;
+  // Update the sliders
+  colorizeSliders(color, hue, brightness, saturation);
 }
 
 // Function that updates the text whenever hsl is adjusted
