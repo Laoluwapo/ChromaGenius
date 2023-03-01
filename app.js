@@ -4,6 +4,9 @@ const generateBtn = document.querySelector(".generate");
 const sliders = document.querySelectorAll('input[type="range"]');
 const currentHexes = document.querySelectorAll(".color h2");
 const popup = document.querySelector(".copy-container");
+const adjustButtons = document.querySelectorAll(".adjust");
+const closeAdjustments = document.querySelectorAll(".close-adjustment");
+const sliderContainers = document.querySelectorAll(".sliders");
 let initialColors;
 
 // Functions
@@ -126,6 +129,16 @@ function copyToClipboard(hex) {
   }, 600);
 }
 
+// Function that opens the color adjustment panel
+function openAdjustmentPanel(index) {
+  sliderContainers[index].classList.toggle("active");
+}
+
+// Function that closes the color adjustment panel
+function closeAdjustmentPanel(index) {
+  sliderContainers[index].classList.remove("active");
+}
+
 randomColors();
 
 // Event listeners
@@ -140,5 +153,15 @@ colorDivs.forEach((div, index) => {
 currentHexes.forEach((hex) => {
   hex.addEventListener("click", () => {
     copyToClipboard(hex);
+  });
+});
+adjustButtons.forEach((adjustButton, index) => {
+  adjustButton.addEventListener("click", () => {
+    openAdjustmentPanel(index);
+  });
+});
+closeAdjustments.forEach((closePanelButton, index) => {
+  closePanelButton.addEventListener("click", () => {
+    closeAdjustmentPanel(index);
   });
 });
