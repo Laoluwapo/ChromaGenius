@@ -7,6 +7,7 @@ const popup = document.querySelector(".copy-container");
 const adjustButtons = document.querySelectorAll(".adjust");
 const closeAdjustments = document.querySelectorAll(".close-adjustment");
 const sliderContainers = document.querySelectorAll(".sliders");
+const lockButtons = document.querySelectorAll(".lock");
 let initialColors;
 
 // Functions
@@ -23,6 +24,7 @@ function randomColors() {
   colorDivs.forEach((div, index) => {
     const hexText = div.children[0];
     const randomColor = generateHex();
+    const icons = colorDivs[index].querySelectorAll(".controls button");
     // Add color to the array
     initialColors.push(chroma(randomColor).hex());
     // Add the color to the background
@@ -30,6 +32,10 @@ function randomColors() {
     hexText.innerText = randomColor;
     // Check for text contrast
     checkTextContrast(randomColor, hexText);
+    // Check icon contrast too
+    for (icon of icons) {
+      checkTextContrast(randomColor, icon);
+    }
     // Initial colorization of the sliders
     const color = chroma(randomColor);
     const sliders = div.querySelectorAll(".sliders input");
@@ -142,6 +148,7 @@ function closeAdjustmentPanel(index) {
 randomColors();
 
 // Event listeners
+generateBtn.addEventListener("click", randomColors);
 sliders.forEach((slider) => {
   slider.addEventListener("input", hslControls);
 });
