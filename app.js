@@ -26,7 +26,12 @@ function randomColors() {
     const randomColor = generateHex();
     const icons = colorDivs[index].querySelectorAll(".controls button");
     // Add color to the array
-    initialColors.push(chroma(randomColor).hex());
+    if (div.classList.contains("locked")) {
+      initialColors.push(hexText.innerText);
+      return;
+    } else {
+      initialColors.push(chroma(randomColor).hex());
+    }
     // Add the color to the background
     div.style.backgroundColor = randomColor;
     hexText.innerText = randomColor;
@@ -145,6 +150,16 @@ function closeAdjustmentPanel(index) {
   sliderContainers[index].classList.remove("active");
 }
 
+// Function that handles the lock feature
+function lockFeature(e, index) {
+  colorDivs[index].classList.toggle("locked");
+  if (colorDivs[index].classList.contains("locked")) {
+    e.target.innerHTML = `<i class = "fas fa-lock"></i>`;
+  } else {
+    e.target.innerHTML = `<i class = "fas fa-lock-open"></i>`;
+  }
+}
+
 randomColors();
 
 // Event listeners
@@ -170,5 +185,10 @@ adjustButtons.forEach((adjustButton, index) => {
 closeAdjustments.forEach((closePanelButton, index) => {
   closePanelButton.addEventListener("click", () => {
     closeAdjustmentPanel(index);
+  });
+});
+lockButtons.forEach((lockButton, index) => {
+  lockButton.addEventListener("click", (e) => {
+    lockFeature(e, index);
   });
 });
