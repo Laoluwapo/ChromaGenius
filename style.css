@@ -63,7 +63,7 @@ svg {
   pointer-events: all;
 }
 
-.sliders button { 
+.sliders button, .close-library { 
   position: absolute;
   top: 0;
   right: 0;
@@ -75,6 +75,15 @@ svg {
   color: white;
   cursor: pointer;
   font-weight: bold;
+}
+
+.close-save, .close-library {
+  background: rgb(60, 60, 92);
+  color: white;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  font-size: 1.2rem;
 }
 
 .controls {
@@ -140,7 +149,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 /* Style the clipboard */
-.copy-container {
+.copy-container, .save-container, .library-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -155,28 +164,72 @@ input[type="range"]::-webkit-slider-thumb {
   transition: all 0.5s ease-in-out;
 }
 
-.copy-container.active {
+.copy-container.active, .save-container.active, .library-container.active {
   opacity: 1;
   pointer-events: all;
 }
 
-.copy-popup {
+.copy-popup,
+.save-popup,
+.library-popup {
   background: white;
-  min-width: 30%;
-  min-height: 30vh;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
   border-radius: 2rem;
-  transition: transform 0.6s ease;
+  transition: transform 0.5s ease;
   transform: translateY(-2rem);
+  min-width: 30%;
+  min-height: 30vh;
 }
 
-.copy-popup.active {
+.copy-popup,
+.save-popup,
+.library-popup {
+  font-size: 1.5rem;
+  padding: 2rem;
+}
+
+.copy-popup h4,
+.save-popup h4,
+.library-popup h4 {
+  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+}
+
+.copy-container.active,
+.save-container.active,
+.library-container.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.copy-popup.active,
+.save-popup.active,
+.library-popup.active {
   transform: translateY(0rem);
 }
 
-.copy-popup h4 {
-  font-size: 3rem;
+.save-name {
+  font-size: 1.5rem;
+  padding: 1rem;
+}
+
+.close-save,
+.close-library {
+  border-top-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  padding: 0.5rem;
+}
+
+.submit-save {
+  margin: 2rem;
+  padding: 1rem 3rem;
+  background: rgb(60, 60, 92);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
 }
