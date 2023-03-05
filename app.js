@@ -202,21 +202,56 @@ const saveContainer = document.querySelector(".save-container");
 const saveInput = document.querySelector(".save-container input");
 
 // Functions
+
 // Function to open the save palette
 function openPalette(e) {
   const popup = saveContainer.children[0];
   saveContainer.classList.add("active");
   popup.classList.add("active");
 }
+
 // Function to close the save palette
 function closePalette(e) {
   const popup = saveContainer.children[0];
   saveContainer.classList.remove("active");
+  popup.classList.remove("active");
   popup.classList.add("remove");
+}
+
+// Function to save color palettes on the localstorage
+function savePalette(e) {
+  saveContainer.classList.remove("active");
+  const popup = saveContainer.children[0];
+  popup.classList.remove("active");
+  const name = saveInput.value;
+  const colors = [];
+  currentHexes.forEach((hex) => {
+    colors.push(hex.innerText);
+  });
+  // Generate Object
+  let paletteNr = savedPalettes.length;
+  const paletteObj = { name: name, colors: colors, nr: paletteNr };
+  savedPalettes.push(paletteObj);
+  // Save to local storage
+  saveToLocal(paletteObj);
+  saveInput.value = "";
+}
+
+// Function to check the local storage for saved data
+function saveToLocal(paletteObj) {
+  let localPalettes;
+  if (localStorage.getItem("palettes") === null) {
+    localPalettes = [];
+  } else {
+    localPalettes = JSON.parse(localStorage.getItem("palettes"));
+  }
+  localPalettes.push(paletteObj);
+  localStorage.setItem("palettes", JSON.stringify(localPalettes));
 }
 
 // Event listeners
 saveBtn.addEventListener("click", openPalette);
 closeSave.addEventListener("click", closePalette);
+submitSave.addEventListener("click", savePalette);
 
 randomColors();
