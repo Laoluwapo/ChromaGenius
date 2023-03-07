@@ -223,6 +223,7 @@ const saveInput = document.querySelector(".save-container input");
 const libraryContainer = document.querySelector(".library-container");
 const libraryBtn = document.querySelector(".library");
 const closeLibraryBtn = document.querySelector(".close-library");
+const clearLibrary = document.querySelector(".clear");
 
 // Functions
 
@@ -380,6 +381,10 @@ closeSave.addEventListener("click", closePalette);
 submitSave.addEventListener("click", savePalette);
 libraryBtn.addEventListener("click", openLibrary);
 closeLibraryBtn.addEventListener("click", closeLibrary);
+clearLibrary.addEventListener("click", () => {
+  localStorage.clear();
+  location.reload();
+});
 
 getLocal();
 randomColors();
